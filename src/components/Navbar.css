@@ -1,0 +1,9 @@
+.navbar ul {
+    display: flex;
+    gap: 20px;
+  }
+  .navbar .active a {
+    font-weight: bold;
+    border-bottom: 2px solid black;
+  }
+  
