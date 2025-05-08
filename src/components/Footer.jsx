@@ -1,12 +1,11 @@
 import React from 'react';
-import './Footer.css'; // pakai file CSS asli
 
-function Footer() {
+const Footer = () => {
   return (
-    <footer className="footer">
-      <p>&copy; 2025 Ruang Baca. All rights reserved.</p>
+    <footer className="bg-gray-100 text-center py-4 mt-8">
+      <p className="text-gray-600">&copy; 2025 Ruang Baca. All rights reserved.</p>
     </footer>
   );
-}
+};
 
 export default Footer;

@@ -5,11 +5,15 @@ import './Contact.css';
 const Contact = () => {
   return (
     <div className="contact-container">
-      {/* Ornamen hiasan */}
-      <div className="bg-decoration"></div>
 
-      <div className="contact-content">
+      {/* Navigasi kembali */}
+      <div className="back-navigation">
+        <Link to="/category" className="back-button">←</Link>
         <h2 className="page-title">📭 Contact Us</h2>
+      </div>
+
+      {/* Konten */}
+      <div className="contact-content">
         <p className="contact-text">
           Kami senang mendengar dari Anda. Silakan hubungi kami melalui informasi berikut atau kirim pesan langsung:
         </p>
@@ -36,7 +40,7 @@ const Contact = () => {
         </div>
       </div>
 
-      {/* FOOTER */}
+      {/* Footer */}
       <footer className="footer">
         <div className="footer-nav">
           <Link to="/" className="footer-item">Home</Link>

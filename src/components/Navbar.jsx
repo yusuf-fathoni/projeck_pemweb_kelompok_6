@@ -1,32 +1,33 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import './Navbar.css'; // pastikan file CSS asli kamu ada
-import logo from '../assets/logo.png'; // sesuaikan dengan struktur aslimu
+import { NavLink } from 'react-router-dom';
 
-function Navbar() {
-  const location = useLocation();
+const Navbar = () => {
+  const linkClass = ({ isActive }) =>
+    `px-3 py-1 transition-colors duration-200 ${
+      isActive ? 'text-blue-500 font-semibold' : 'text-white hover:text-blue-300'
+    }`;
 
   return (
-    <nav className="navbar">
-      <div className="logo">
-        <img src={logo} alt="Logo Ruang Baca" />
-      </div>
-      <ul className="nav-links">
-        <li className={location.pathname === '/' ? 'active' : ''}>
-          <Link to="/">Home</Link>
-        </li>
-        <li className={location.pathname === '/about' ? 'active' : ''}>
-          <Link to="/about">About</Link>
-        </li>
-        <li className={location.pathname === '/category' ? 'active' : ''}>
-          <Link to="/category">Category</Link>
-        </li>
-        <li className={location.pathname === '/contact' ? 'active' : ''}>
-          <Link to="/contact">Contact</Link>
-        </li>
-      </ul>
-    </nav>
+    <>
+      {/* Navbar */}
+      <nav className="flex justify-between items-center px-6 py-3 bg-gray-900 text-white">
+        <div className="flex items-center gap-3">
+          <img
+            src="/assets/img/logo.jpeg"
+            className="w-8 h-8 rounded-full object-cover"
+          />
+          <span className="text-xl font-bold">RUANG BACA</span>
+        </div>
+        <div className="flex gap-6">
+          <NavLink to="/" className={linkClass}>Home</NavLink>
+          <NavLink to="/about" className={linkClass}>About</NavLink>
+          <NavLink to="/category" className={linkClass}>Category</NavLink>
+          <NavLink to="/contact" className={linkClass}>Contact</NavLink>
+        </div>
+      </nav>
+
+    </>
   );
-}
+};
 
 export default Navbar;

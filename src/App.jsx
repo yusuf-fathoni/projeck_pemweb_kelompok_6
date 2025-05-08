@@ -6,20 +6,24 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Category from './pages/Category';
 import Contact from './pages/Contact';
-import BookDetail from './pages/BookDetail';
+import BookDetail from './pages/BookDetail'; // untuk klik buku
 
 function App() {
   return (
     <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/category" element={<Category />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/book/:id" element={<BookDetail />} />
-      </Routes>
-      <Footer />
+      <div className="flex flex-col min-h-screen">
+        <Navbar />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/category" element={<Category />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/book/:id" element={<BookDetail />} /> {/* detail buku */}
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </Router>
   );
 }
