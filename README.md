@@ -20,6 +20,17 @@ Website sederhana yang dibuat dengan ReactJS untuk menampilkan koleksi buku digi
 - [AOS (Animate on Scroll)](https://michalsnik.github.io/aos/)
 - CSS (tanpa framework UI)
 
+##  User flow
+    [Home Page]
+     |
+     |---> [Klik Buku] --------> [Book Detail Page]
+     |
+     |---> [Klik "About"] ------> [About Page]
+     |
+     |---> [Klik "Contact"] ----> [Contact Page]
+     |
+     |---> [Klik "Category"] ---> [Category Page]
+
 ## 📁 Struktur Folder
 
 ```plaintext
