@@ -9,7 +9,7 @@ Website sederhana yang dibuat dengan ReactJS untuk menampilkan koleksi buku digi
 - Halaman Beranda dengan hero image dan daftar buku
 - Navigasi antar halaman: Home, About, Contact, dan Kategori Buku
 - Komponen modular: Header, Footer, Card Buku, dan Detail Buku
-- Animasi menggunakan Framer Motion dan AOS
+- Animasi menggunakan AOS
 - Styling custom dengan CSS lokal (tanpa Tailwind atau Bootstrap)
 
 ## 🛠️ Teknologi yang Digunakan
