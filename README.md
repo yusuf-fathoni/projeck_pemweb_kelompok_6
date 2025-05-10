@@ -16,7 +16,6 @@ Website sederhana yang dibuat dengan ReactJS untuk menampilkan koleksi buku digi
 
 - [ReactJS](https://reactjs.org/)
 - [React Router DOM](https://reactrouter.com/)
-- [Framer Motion](https://www.framer.com/motion/)
 - [AOS (Animate on Scroll)](https://michalsnik.github.io/aos/)
 - CSS (tanpa framework UI)
 
