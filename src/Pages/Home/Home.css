@@ -122,22 +122,161 @@ h3 {
 }
 
 /* Responsive Design */
-@media (max-width: 600px) {
+@media (max-width: 1024px) {
+  .home-container {
+    padding: 15px;
+  }
+
+  .card-book {
+    width: 180px;
+  }
+
+  .card-book img {
+    height: 270px;
+  }
+
+  .scroll-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-container {
+    padding: 10px;
+  }
+
+  h3 {
+    font-size: 20px;
+    margin: 30px 0 15px;
+  }
+
+  .scroll-wrapper {
+    margin: 0 auto 30px;
+  }
+
+  .book-list-horizontal {
+    gap: 16px;
+    margin: 0 30px;
+    padding: 15px 0;
+  }
+
+  .card-book {
+    width: 150px;
+  }
+
+  .card-book img {
+    height: 225px;
+  }
+
+  .card-book .book-info h4 {
+    font-size: 14px;
+  }
+
+  .card-book .book-info p {
+    font-size: 12px;
+  }
+
   .scroll-btn {
     width: 30px;
     height: 30px;
     font-size: 16px;
   }
 
+  .scroll-btn.left {
+    left: -5px;
+  }
+
+  .scroll-btn.right {
+    right: -5px;
+  }
+}
+
+@media (max-width: 600px) {
+  .home-container {
+    padding: 8px;
+  }
+
+  h3 {
+    font-size: 18px;
+    margin: 25px 0 12px;
+  }
+
+  .book-list-horizontal {
+    gap: 12px;
+    margin: 0 25px;
+    padding: 12px 0;
+  }
+
   .card-book {
-    width: 140px;
+    width: 120px;
   }
 
   .card-book img {
-    height: 160px;
+    height: 180px;
   }
 
-  .book-info h4 {
-    font-size: 12.5px;
+  .card-book .book-info h4 {
+    font-size: 12px;
+    margin: 8px 0 4px;
+  }
+
+  .card-book .book-info p {
+    font-size: 10px;
+  }
+
+  .scroll-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-container {
+    padding: 5px;
+  }
+
+  h3 {
+    font-size: 16px;
+    margin: 20px 0 10px;
+  }
+
+  .book-list-horizontal {
+    gap: 10px;
+    margin: 0 20px;
+    padding: 10px 0;
+  }
+
+  .card-book {
+    width: 100px;
+  }
+
+  .card-book img {
+    height: 150px;
+  }
+
+  .card-book .book-info h4 {
+    font-size: 11px;
+    margin: 6px 0 3px;
+  }
+
+  .card-book .book-info p {
+    font-size: 9px;
+  }
+
+  .scroll-btn {
+    width: 25px;
+    height: 25px;
+    font-size: 12px;
+  }
+
+  .scroll-btn.left {
+    left: -2px;
+  }
+
+  .scroll-btn.right {
+    right: -2px;
   }
 }

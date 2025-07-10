@@ -1,0 +1,82 @@
+.admin-container {
+  padding: 40px;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.admin-header h2 {
+  color: #333;
+}
+
+.btn-back {
+  padding: 10px 20px;
+  background-color: #2980b9;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.review-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.review-table th, .review-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.review-table th {
+  background-color: #3498db;
+  color: white;
+}
+
+.btn {
+  padding: 6px 12px;
+  margin: 2px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn.edit {
+  background-color: #f39c12;
+  color: white;
+}
+
+.btn.delete {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn.save {
+  background-color: #27ae60;
+  color: white;
+}
+
+.btn.cancel {
+  background-color: #7f8c8d;
+  color: white;
+}
+
+input {
+  padding: 6px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.no-review {
+  font-style: italic;
+  color: #888;
+}

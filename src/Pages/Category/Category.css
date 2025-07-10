@@ -4,6 +4,8 @@
 
 .category-page {
   padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .class-button {
@@ -94,4 +96,122 @@
 .book-info p {
   font-size: 14px;
   color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .category-page {
+    padding: 15px;
+  }
+
+  .book-grid {
+    gap: 14px;
+  }
+
+  .category-section h3 {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .category-page {
+    padding: 10px;
+  }
+
+  .class-button button {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  .category-section {
+    margin-bottom: 30px;
+  }
+
+  .category-section h3 {
+    font-size: 16px;
+    margin: 15px 0 8px 0;
+  }
+
+  .book-grid {
+    gap: 12px;
+    padding: 10px 0;
+  }
+
+  .book-info h4 {
+    font-size: 16px;
+  }
+
+  .book-info p {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .category-page {
+    padding: 8px;
+  }
+
+  .class-button {
+    margin-bottom: 15px;
+  }
+
+  .class-button button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .category-section {
+    margin-bottom: 25px;
+  }
+
+  .category-section h3 {
+    font-size: 14px;
+    margin: 12px 0 6px 0;
+  }
+
+  .book-grid {
+    gap: 10px;
+    padding: 8px 0;
+  }
+
+  .book-info h4 {
+    font-size: 14px;
+  }
+
+  .book-info p {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .category-page {
+    padding: 5px;
+  }
+
+  .class-button button {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+
+  .category-section {
+    margin-bottom: 20px;
+  }
+
+  .category-section h3 {
+    font-size: 13px;
+    margin: 10px 0 5px 0;
+  }
+
+  .book-grid {
+    gap: 8px;
+    padding: 6px 0;
+  }
+
+  .book-info h4 {
+    font-size: 12px;
+  }
+
+  .book-info p {
+    font-size: 10px;
+  }
 }

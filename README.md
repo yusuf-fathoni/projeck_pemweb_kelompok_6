@@ -1,42 +1,70 @@
-# projeck_pemweb_kelompok_6
+# Getting Started with Create React App
 
-# 📚 Ruang Baca
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Website sederhana yang dibuat dengan ReactJS untuk menampilkan koleksi buku digital dan informasi seputar perpustakaan. Project ini cocok digunakan untuk pembelajaran frontend development menggunakan React.
+## Available Scripts
 
-## 🚀 Fitur Utama
+In the project directory, you can run:
 
-- Halaman Beranda dengan hero image dan daftar buku
-- Navigasi antar halaman: Home, About, Contact, dan Kategori Buku
-- Komponen modular: Header, Footer, Card Buku, dan Detail Buku
-- Animasi menggunakan AOS
-- Styling custom dengan CSS lokal (tanpa Tailwind atau Bootstrap)
+### `npm start`
 
-## 🛠️ Teknologi yang Digunakan
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-- [ReactJS](https://reactjs.org/)
-- [React Router DOM](https://reactrouter.com/)
-- [AOS (Animate on Scroll)](https://michalsnik.github.io/aos/)
-- CSS (tanpa framework UI)
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-##  User flow
-    [Home Page]
-     |
-     |---> [Klik Buku] --------> [Book Detail Page]
-     |
-     |---> [Klik "About"] ------> [About Page]
-     |
-     |---> [Klik "Contact"] ----> [Contact Page]
-     |
-     |---> [Klik "Category"] ---> [Category Page]
+### `npm test`
 
-## 📁 Struktur Folder
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-```plaintext
-src/
-├── assets/              # Gambar & aset visual
-├── Components/          # Komponen UI seperti Header, Footer, dll
-├── Pages/               # Halaman utama: Home, About, Contact, Category
-├── styles/              # File CSS global
-├── App.js               # Komponen utama aplikasi
-├── index.js             # Entry point React
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
