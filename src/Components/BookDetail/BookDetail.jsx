@@ -1,258 +1,119 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './BookDetail.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import { useNavigate, useParams } from 'react-router-dom';
 
+// Data buku dari Category.jsx
 const dummyBooks = [
-  {
-    id: 1,
-    title: 'Agama Negara & Masyarakat',
-    category: 'Agama',
-    author: 'Dr. A. Bakir Ihsan, Dr Cucu Nurhayati',
-    year: 2020,
-    pages: 199,
-    publisher: 'Penerbit HAJA Mandiri',
-    synopsis: 'Agama dan negara merupakan dua entitas yang merepresentasikan kuasa dalam kehidupan umat manusia. Agama wujud kuasa langit (Tuhan) dan negara simbol kuasa bumi (manusia). Tak jarang keduanya berkontestasi dalam hegemoni tahta, sering pula bersinergi dalam kolaborasi budaya. Negara yang menempatkan agama sebagai bagian penting dalam kehidupan warganya melahirkan relasi yang tidak sederhana. Negara dengan orientasi modernisasinya mendemarkasi agama sebagai kekuatan dalam beragam simbiosis baik mutualis, komensalis, maupun parasit.',
-    image: '/images/agama1.jpeg',
-    link: '/files/Agama1.pdf'
-  },
-  {
-    id: 2,
-    title: 'Pengantar Pendidikan Agama Islam',
-    category: 'Agama',
-    author: 'M. Ali Mahmudi, Syafruddin, Jumahir, Farid Haluti, Kuni Safingah, Taufik Abdillah Syukur, Isna Nurul Inayati, Sudirman',
-    year: 2024,
-    pages: 121,
-    publisher: 'CV Hei Publishing Indonesia',
-    synopsis: 'Relasi agama dan negara semakin menemukan ruang ekspresinya di alam demokrasi yang memungkinkan keterlibatan kaum agamawan (tokoh agama) dalam politik. Pada titik tertentu, negara memiliki kepentingan terhadap eksistensi kaum agamawan sebagai proxy dalam menyapa umat yang sekaligus warga negara',
-    image: '/images/agama2.jpeg',
-    link: '/files/Agama2.pdf'
-  },
-  {
-    id: 3,
-    title: 'Menyemai Toleransi Merawat NKRI',
-    category: 'Agama',
-    author: 'Dr. H.M. Zaki, S.Ag., M.Pd',
-    year: 2018,
-    pages: 256,
-    publisher: 'Sanabil',
-    synopsis: 'Pluralitas agama dan heterogenitas budaya menjadi ciri khas Bangsa Indonesia. Kedua entitas ini diyakini sebagai takdir. Ia tidak diminta, melainkan pemberian Tuhan Yang Maha Pencipta, bukan untuk ditawar tapi untuk diterima (taken for granted). Meski agama yang paling banyak dianut dan dijadikan sebagai pedoman oleh masyarakat Indonesia berjumlah enam: Islam, Kristen, Katolik, Hindu, Budha, dan Konghucu, namun keyakinan dan kepercayaan keagamaan sebagaian masyarakat Indonesia, juga diekspresikan dalam ratusan agama leluhur dan penghayat kepercayaan. ',
-    image: '/images/agama3.jpg',
-    link: '/files/Agama3.pdf'
-  },
-  {
-    id: 4,
-    title: 'Toleransi Beragama',
-    category: 'Agama',
-    author: 'Dr. Baidi Bukhori, S.Ag., M.Si',
-    year: 2022,
-    pages: 141,
-    publisher: 'CV. Pilar Nusantara',
-    synopsis: 'Keragaman hayati, bahasa, budaya, adat, suku, hingga agama yang dimiliki Indonesia meniscayakan adanya teloransi antar warga negara. Toleransi juga harus dimiliki oleh kelompok agama. Jika masing-masing kelompok agama tidak toleran terhadap kelompok agama lain maka akan menimbulkan konflik sosial bahkan pertumpahan darah.',
-    image: '/images/agama4.jpeg',
-    link: '/files/Agama4.pdf'
-  },
-  {
-    id: 5,
-    title: 'Internalisasi Nilai Toleransi Beragama di Masyarakat',
-    category: 'Agama',
-    author: 'Moch. Sya`roni Hasan, M.Pd.I.',
-    year: 2018,
-    pages: 140,
-    publisher: 'CV. Kanaka Media',
-    synopsis: 'Manusia sebagai makhluk sosial pasti mempunyai perbedaan, baik perbedaan dari segi kepribadiannya maupun dari segi sosialnya. Demikian juga dengan Bangsa Indonesia, yang memiliki pulau dari sabang sampai merauke terdiri atas pelbagai macam budaaya, suku, bahasa, budaya, ras dan agama. Beragam perbedaan itu tidak menghalangi para pendiri bangsa untuk bersatu padu menjalin persatuan serta kesatuan Bangsa Indonesia, sebagaimana tercermin dengan slogan Bhinneka Tunggal Ika. ',
-    image: '/images/agama5.jpeg',
-    link: '/files/Agama5.pdf'
-  },
-  {
-    id: 6,
-    title: 'Cantik itu Luka',
-    category: 'Fiksi',
-    author: 'Eka Kurniawan',
-    year: 2004,
-    pages: 494,
-    publisher: 'PT Gramedia Pustaka utama',
-    synopsis: 'ovel realisme magis yang menceritakan tragedi keluarga Dewi Ayu, seorang pelacur cantik, dan keturunan-keturunannya di kota Halimunda selama masa kolonial hingga pasca 1965. Dewi Ayu yang lahir dari pernikahan sedarah, kemudian menjadi pelacur karena kecantikannya, dan melahirkan empat anak perempuan yang mengalami nasib serupa. Cerita ini menggabungkan realisme dengan elemen magis, seperti kebangkitan Dewi Ayu dari kubur, dan menampilkan tema-tema seperti kekerasan, seksualitas, dan ketidakadilan sosial. ',
-    image: '/images/fiksi1.jpg',
-    link: '/files/Fiksi1.pdf'
-  },
-  {
-    id: 7,
-    title: 'Sang Pempimpi',
-    category: 'Fiksi',
-    author: 'Andrea Hirata',
-    year: 2006,
-    pages: 195,
-    publisher: 'Penerbit Bentang',
-    synopsis: 'menceritakan perjuangan tiga sahabat, Ikal, Arai, dan Jimbron, untuk meraih impian melanjutkan pendidikan ke jenjang tinggi di Perancis, meskipun berasal dari keluarga yang kurang mampu dan tinggal di Belitung. Ikal, Arai, dan Jimbron, yang bersekolah di SMA Negeri Manggar, berjuang keras untuk menabung dan bekerja sambil sekolah',
-    image: '/images/fiksi2.jpg',
-    link: '/files/Fiksi2.pdf'
-  },
-  {
-    id: 8,
-    title: 'Berani Bahagia',
-    category: 'Fiksi',
-    author: 'Ichiro Kishimi, Fumitake Koga',
-    year: 2020,
-    pages: 337,
-    publisher: 'PT Gramedia Pustaka Utama',
-    synopsis: 'Sang pemuda, yang kini sudah menjadi guru yang bertekad mem-praktikkan ide-ide Adler, menghubungi filsuf itu sekali lagi dan berkata: Teori psikologi Adler sebenarnya tak lebih dari se-kadar tumpukan teori kosong. Kau sedang berusaha menyesat-kan dan merusak generasi muda dengan ide-ide Adler. Aku harus melepaskan diri dari ide-ide berbahaya itu. Begitulah ujarnya. ',
-    image: '/images/fiksi3.png',
-    link:'/files/fiksi3.pdf'
-  },
-  {
-    id: 9,
-    title: 'Berjalan di Atas Air',
-    category: 'Fiksi',
-    author: 'Rahman Mangunssara',
-    year: 2019,
-    pages: 289,
-    publisher: 'PT. Leutika Nouvalitera',
-    synopsis: 'Novel yang ada di tangan Anda ini bukan cerita biasa, melainkan sebuah novel yang lahir dari pengalaman nyata sang penulis. Kisah masa kecil, peristiwa-peristiwa yang seru, menyentuh, hingga lucu, latar yang detail, di tangan jurnalis senior seperti Mas Rahman, terasa hidup dan seolah terjadi di depan mata kita. Ini kisah persahabatan sejati yang turut membangun karakter dan masa depan yang tak pernah terbayangkan sebelumnya. Sebuah novel yang menarik untuk siapa pun, dan akan relevan sepanjang usia kehidupan ini.',
-    image: '/images/fiksi4.jpg',
-    link: '/files/Fiksi4.pdf'
-  },
-  {
-    id: 10,
-    title: 'Laut Bercerita',
-    category: 'Fiksi',
-    author: 'Leila S. Chudori',
-    year: 2025,
-    pages: 330,
-    publisher: 'PT. Gramedia Indonesia',
-    synopsis: 'novel yang mengisahkan kisah nyata tentang sekelompok aktivis mahasiswa yang hilang pada tahun 1998, di masa Orde Baru. Novel ini bercerita tentang Biru Laut, seorang aktivis yang menjadi bagian dari perlawanan terhadap rezim otoriter, dan dampak hilangnya Biru Laut terhadap keluarganya, terutama adiknya, Asmara Jati, yang terus mencari kejelasan nasib kakaknya.',
-    image: '/images/fiksi5.jpeg',
-    link: '/files/Fiksi5.pdf'
-  },
-  {
-    id: 11,
-    title: 'Web Programming',
-    category: 'Pemrograman',
-    author: 'Ani Oktarini Sari, Ari Abdillah, Sunarti',
-    year: 2019,
-    pages: 99,
-    publisher: 'Universitas Bina Sarana Informatika',
-    synopsis: 'Buku Web Programing berisikan materi belajar mengenai dasar-dasar pemrograman web. Buku ini direkomendasikan bagi pemula belajar pemrograman web. Buku ini menjelaskan bagaimana belajar dasar-dasar web dengan mudah, praktis dan cepat disertakan contoh latihan-latihan. Dan adanya latihan contoh studi kasus membuat website yang responsive.',
-    image: '/images/program1.jpg',
-    link: '/files/Program1.pdf'
-  },
-  {
-    id: 12,
-    title: 'Belajar Pemrograman Web Dasar',
-    category: 'Pemrograman',
-    author: 'Dendy Kurniawan, S.Kom., M.Kom',
-    year: 2022,
-    pages: 235,
-    publisher: 'Yayasan prima agus teknik',
-    synopsis: 'Buku ini menjelaskan bagaimana belajar dasar-dasar web dengan mudah, praktis dan cepat disertakan contoh latihan-latihan.',
-    image: '/images/program2.png',
-    link: '/files/program2.pdf'
-  },
-  {
-    id: 13,
-    title: 'Mudah Membuat Web Bagi Pemula',
-    category: 'Pemrograman',
-    author: 'Moh Muthohir, S.Kom., M.Kom',
-    year: 2025,
-    pages: 450,
-    publisher: 'Yayasan Prima Agus Teknik',
-    synopsis: 'berisikan materi belajar mengenai dasar-dasar pemrograman web. Buku ini direkomendasikan bagi pemula belajar pemrograman web. Buku ini menjelaskan bagaimana belajar dasar-dasar web dengan mudah, praktis dan cepat disertakan contoh latihan-latihan. Dan adanya latihan contoh studi kasus membuat website ',
-    image: '/images/program3.jpg',
-    link: '/files/Program3.pdf'
-  },
-  {
-    id: 14,
-    title: 'Dasar pemrograman komputer dengan menggunakan matlab',
-    category: 'Pemrograman',
-    author: 'Trija Fayeldi, M.Si, Tatik Retno Murniasih, S.Si., M.Pd',
-    year: 2025,
-    pages: 480,
-    publisher: 'Media Nusa Creative',
-    synopsis: 'Buku Web Programing berisikan materi belajar mengenai dasar-dasar pemrograman web. Buku ini direkomendasikan bagi pemula belajar pemrograman web. Buku ini menjelaskan bagaimana belajar dasar-dasar web dengan mudah, praktis dan cepat disertakan contoh latihan-latihan. Dan adanya latihan contoh studi kasus membuat website yang responsive.',
-    image: '/images/program4.jpg',
-    link: '/files/Program4.pdf'
-  },
-  {
-    id: 15,
-    title: 'Pemrograman Komputer dengan dasar-dasar Python',
-    category: 'Pemrograman',
-    author: 'Ismah, M.Si',
-    year: 2017,
-    pages: 224,
-    publisher: 'Fakultas Ilmu Pendidikan UMJ',
-    synopsis: 'python merupakan salah satu bahasa pemrograman yang populer belakangan ini karena beberapa faktorfleksibelitas dapat digunakan di berbagai platform (Windows, Mac, Linux dan lain sebagainya). Bahasa yang dibangun sangat mudah dan sederhana, sehingga kesederhanaan bahasanya tersebut ada yang berpendapat bahwa Python merupakan salah satu Bahasa Pemrograman yang mendekati bahasa manusia. ',
-    image: '/images/program5.jpeg',
-    link: '/files/Program5.pdf'
-  },
-  {
-  id: 16,
-  title: 'Buku Pembelajaran Bola Volly',
-  category: 'Olahraga',
-  author: 'Dwi Yulia Nur Mulyadi, M',
-  year: 2020,
-  pages: 85,
-  publisher: 'Penerbit M',
-  synopsis: 'Ini sinopsis singkat untuk Buku Olahraga 1...',
-  image: '/images/olahraga1.jpeg',
-  link:'/files/Olahraga1.pdf'
-},
-{
-  id: 17,
-  title: 'Buku Pintar Sepakbola',
-  category: 'Olahraga',
-  author: 'Agus Salim',
-  year: 2023,
-  pages: 130,
-  publisher: 'PT INTIMEDIA CIPTANUSANTARA',
-  synopsis: 'Pada dasarnya sepakbola adalah olahraga yang memainkan bola dengan menggunakan kaki. Tujuan utamanya dari permainan ini adalah untuk mencetak gol atau skor sebanyak-banyaknya yang tentunya harus dilakukan sesuai dengan ketentuan yang telah ditetapkan. Untuk bisa membuat gol kalian harus tangkas, sigap, cepat dan baik dalam mengontrol bola',
-  image:'/images/olahraga2.jpeg',
-  link: '/files/Olahraga2.pdf'
-},
-{
-  id: 18,
-  title: 'Buku Ajar Bola Basket',
-  category: 'Olahraga',
-  author: 'Dr. Saichudin, M.Kes, Sayyid Agil Rifqi Munawar, S.Or',
-  year: 2019,
-  pages: 88,
-  publisher: 'Penerbit Wineka Media',
-  synopsis: 'Permainan bolabasket merupakan salah satu olahraga permainan bola besar berkelompok yang terdiri atas dua tim yang beranggotakan masing-masing lima orang dan saling bertanding untuk mencetak poin dengan memasukkan bola ke dalam keranjang lawan dan mencegah terjadinya poin ke keranjang sendiri.',
-  image: '/images/olahraga3.jpeg',
-  link: '/files/Olahraga3.pdf'
-},
-{
-  id: 19,
-  title: 'Olahraga Yoga',
-  category: 'Olahraga',
-  author: 'I Wayan Ambartana, S.K.M., M.Fis. Ni Made Yuni Gumala, S.K.M., M.Kes.',
-  year: 2024,
-  pages: 40,
-  publisher: 'PT. Literasi Nusantara Abadi Grup',
-  synopsis: 'Yoga (asthanga) sering digambarkan secara metaforis sebagai pohon dan terdiri dari delapan aspek, atau “anggota tubuh”. Patanjali mengkodifikasikan keajaiban yoga kuno sebagai asthanga yang merupakan salah satu dari enam aliran filsafat India dan dikenal sebagai Yoga Darshan Yama (etika universal), Niyama (etika individu), Asana (postur fisik), Pranayama (pengendalian napas), Pratyahara (pengendalian indra)',
-  image: '/images/olahraga4.jpeg',
-  link:'/files/Olahraga4.pdf'
-},
-{
-  id: 20,
-  title: 'Sejarah, Teknik & Variasa Latihan Tenis Meja',
-  category: 'Olahraga',
-  author: 'Guntur Firmansyah, Didik Hariyanto',
-  year: 2019,
-  pages: 99,
-  publisher: 'Media Nusa Creative',
-  synopsis: 'Tenis meja adalah cabang olahraga yang tempat bermainnya didalam ruangan/gedung (indoor game) yang dimainkan oleh 2 orang atau 4 orang yang langsung berhadapan diatas meja menggunakan net sebagai pembatasnya',
-  image: '/images/olahraga5.png',
-  link: '/files/Olahraga5.pdf'
-},
-
+  { id_buku: 'd1', judul: 'Agama Negara', kategori: 'AGAMA', penulis: 'Dr. A. Bakir Ihsan, Dr Cucu Nurhayati', tahun_terbit: '2020', jumlah_halaman: '200', penerbit: 'Penerbit A', file_pdf: '/files/Agama1.pdf', gambar: 'images/agama1.jpeg', synopsis: 'Agama dan negara merupakan dua entitas yang merepresentasikan kuasa dalam kehidupan umat manusia. Agama wujud kuasa langit (Tuhan) dan negara simbol kuasa bumi (manusia).' },
+  { id_buku: 'd2', judul: 'PPAI', kategori: 'AGAMA', penulis: 'M. Ali Mahmudi, Syafruddin, Jumahir, Farid Haluti, Kuni Safingah, Taufik Abdillah Syukur, Isna Nurul Inayati, Sudirman', tahun_terbit: '2019', jumlah_halaman: '180', penerbit: 'Penerbit B', file_pdf: '/files/Agama2.pdf', gambar: 'images/agama2.jpeg', synopsis: 'Relasi agama dan negara semakin menemukan ruang ekspresinya di alam demokrasi yang memungkinkan keterlibatan kaum agamawan dalam politik.' },
+  { id_buku: 'd3', judul: 'Merawat NKRI', kategori: 'AGAMA', penulis: 'Dr. H.M. Zaki, S.Ag., M.Pd', tahun_terbit: '2021', jumlah_halaman: '210', penerbit: 'Penerbit C', file_pdf: '/files/Agama3.pdf', gambar: 'images/agama3.jpg', synopsis: 'Pluralitas agama dan heterogenitas budaya menjadi ciri khas Bangsa Indonesia. Kedua entitas ini diyakini sebagai takdir.' },
+  { id_buku: 'd4', judul: 'Toleransi Agama', kategori: 'AGAMA', penulis: 'Dr. Baidi Bukhori, S.Ag., M.Si', tahun_terbit: '2018', jumlah_halaman: '170', penerbit: 'Penerbit D', file_pdf: '/files/Agama4.pdf', gambar: 'images/agama4.jpeg', synopsis: 'Keragaman hayati, bahasa, budaya, adat, suku, hingga agama yang dimiliki Indonesia meniscayakan adanya toleransi antar warga negara.' },
+  { id_buku: 'd5', judul: 'Toleransi', kategori: 'AGAMA', penulis: 'Moch. Sya`roni Hasan, M.Pd.I.', tahun_terbit: '2017', jumlah_halaman: '160', penerbit: 'Penerbit E', file_pdf: '/files/Agama5.pdf', gambar: 'images/agama5.jpeg', synopsis: 'Manusia sebagai makhluk sosial pasti mempunyai perbedaan, baik perbedaan dari segi kepribadiannya maupun dari segi sosialnya.' },
+  { id_buku: 'd6', judul: 'Cantik itu Luka', kategori: 'FIKSI', penulis: 'Eka Kurniawan', tahun_terbit: '2015', jumlah_halaman: '300', penerbit: 'Penerbit F', file_pdf: '/files/Fiksi1.pdf', gambar: 'images/fiksi1.jpg', synopsis: 'Novel realisme magis yang menceritakan tragedi keluarga Dewi Ayu, seorang pelacur cantik, dan keturunan-keturunannya di kota Halimunda.' },
+  { id_buku: 'd7', judul: 'Sang Pemimpi', kategori: 'FIKSI', penulis: 'Andrea Hirata', tahun_terbit: '2016', jumlah_halaman: '250', penerbit: 'Penerbit G', file_pdf: '/files/Fiksi2.pdf', gambar: 'images/fiksi2.jpg', synopsis: 'Menceritakan perjuangan tiga sahabat, Ikal, Arai, dan Jimbron, untuk meraih impian melanjutkan pendidikan ke jenjang tinggi di Perancis.' },
+  { id_buku: 'd8', judul: 'Berani Bahagia', kategori: 'FIKSI', penulis: 'Ichiro Kishimi, Fumitake Koga', tahun_terbit: '2018', jumlah_halaman: '220', penerbit: 'Penerbit H', file_pdf: '/files/fiksi3.pdf', gambar: 'images/fiksi3.png', synopsis: 'Sang pemuda, yang kini sudah menjadi guru yang bertekad mem-praktikkan ide-ide Adler, menghubungi filsuf itu sekali lagi.' },
+  { id_buku: 'd9', judul: 'Berjalan di Atas Air', kategori: 'FIKSI', penulis: 'Rahman Mangunssara', tahun_terbit: '2019', jumlah_halaman: '190', penerbit: 'Penerbit I', file_pdf: '/files/Fiksi4.pdf', gambar: 'images/fiksi4.jpg', synopsis: 'Novel yang ada di tangan Anda ini bukan cerita biasa, melainkan sebuah novel yang lahir dari pengalaman nyata sang penulis.' },
+  { id_buku: 'd10', judul: 'Laut Bercerita', kategori: 'FIKSI', penulis: 'Leila S. Chudori', tahun_terbit: '2020', jumlah_halaman: '210', penerbit: 'Penerbit J', file_pdf: '/files/Fiksi5.pdf', gambar: 'images/fiksi5.jpeg', synopsis: 'Novel yang mengisahkan kisah nyata tentang sekelompok aktivis mahasiswa yang hilang pada tahun 1998, di masa Orde Baru.' },
+  { id_buku: 'd11', judul: 'Web Programming', kategori: 'PEMROGRAMAN', penulis: 'Ani Oktarini Sari, Ari Abdillah, Sunarti', tahun_terbit: '2022', jumlah_halaman: '320', penerbit: 'Penerbit K', file_pdf: '/files/Program1.pdf', gambar: 'images/program1.jpg', synopsis: 'Buku Web Programing berisikan materi belajar mengenai dasar-dasar pemrograman web. Buku ini direkomendasikan bagi pemula belajar pemrograman web.' },
+  { id_buku: 'd12', judul: 'Belajar Web', kategori: 'PEMROGRAMAN', penulis: 'Dendy Kurniawan, S.Kom., M.Kom', tahun_terbit: '2021', jumlah_halaman: '280', penerbit: 'Penerbit L', file_pdf: '/files/program2.pdf', gambar: 'images/program2.png', synopsis: 'Buku ini menjelaskan bagaimana belajar dasar-dasar web dengan mudah, praktis dan cepat disertakan contoh latihan-latihan.' },
+  { id_buku: 'd13', judul: 'Membuat Web', kategori: 'PEMROGRAMAN', penulis: 'Moh Muthohir, S.Kom., M.Kom', tahun_terbit: '2020', jumlah_halaman: '260', penerbit: 'Penerbit M', file_pdf: '/files/Program3.pdf', gambar: 'images/program3.jpg', synopsis: 'Berisikan materi belajar mengenai dasar-dasar pemrograman web. Buku ini direkomendasikan bagi pemula belajar pemrograman web.' },
+  { id_buku: 'd14', judul: 'Dasar pemrograman', kategori: 'PEMROGRAMAN', penulis: 'Trija Fayeldi, M.Si, Tatik Retno Murniasih, S.Si., M.Pd', tahun_terbit: '2019', jumlah_halaman: '240', penerbit: 'Penerbit N', file_pdf: '/files/Program4.pdf', gambar: 'images/program4.jpg', synopsis: 'Buku Web Programing berisikan materi belajar mengenai dasar-dasar pemrograman web. Buku ini direkomendasikan bagi pemula belajar pemrograman web.' },
+  { id_buku: 'd15', judul: 'Pemrograman', kategori: 'PEMROGRAMAN', penulis: 'Ismah, M.Si', tahun_terbit: '2018', jumlah_halaman: '230', penerbit: 'Penerbit O', file_pdf: '/files/Program5.pdf', gambar: 'images/program5.jpeg', synopsis: 'Python merupakan salah satu bahasa pemrograman yang populer belakangan ini karena beberapa faktor fleksibelitas.' },
+  { id_buku: 'd16', judul: 'Bola Volly', kategori: 'OLAHRAGA', penulis: 'Dwi Yulia Nur Mulyadi, M', tahun_terbit: '2017', jumlah_halaman: '150', penerbit: 'Penerbit P', file_pdf: '/files/Olahraga1.pdf', gambar: 'images/olahraga1.jpeg', synopsis: 'Buku pembelajaran bola voli yang berisi teknik-teknik dasar dan strategi permainan bola voli.' },
+  { id_buku: 'd17', judul: 'Sepakbola', kategori: 'OLAHRAGA', penulis: 'Agus Salim', tahun_terbit: '2016', jumlah_halaman: '140', penerbit: 'Penerbit Q', file_pdf: '/files/Olahraga2.pdf', gambar: 'images/olahraga2.jpeg', synopsis: 'Pada dasarnya sepakbola adalah olahraga yang memainkan bola dengan menggunakan kaki. Tujuan utamanya dari permainan ini adalah untuk mencetak gol.' },
+  { id_buku: 'd18', judul: 'Bola Basket', kategori: 'OLAHRAGA', penulis: 'Dr. Saichudin, M.Kes, Sayyid Agil Rifqi Munawar, S.Or', tahun_terbit: '2015', jumlah_halaman: '130', penerbit: 'Penerbit R', file_pdf: '/files/Olahraga3.pdf', gambar: 'images/olahraga3.jpeg', synopsis: 'Permainan bolabasket merupakan salah satu olahraga permainan bola besar berkelompok yang terdiri atas dua tim.' },
+  { id_buku: 'd19', judul: 'Olahraga Yoga', kategori: 'OLAHRAGA', penulis: 'I Wayan Ambartana, S.K.M., M.Fis. Ni Made Yuni Gumala, S.K.M., M.Kes.', tahun_terbit: '2014', jumlah_halaman: '120', penerbit: 'Penerbit S', file_pdf: '/files/Olahraga4.pdf', gambar: 'images/olahraga4.jpeg', synopsis: 'Yoga (asthanga) sering digambarkan secara metaforis sebagai pohon dan terdiri dari delapan aspek, atau "anggota tubuh".' },
+  { id_buku: 'd20', judul: 'Tenis Meja', kategori: 'OLAHRAGA', penulis: 'Guntur Firmansyah, Didik Hariyanto', tahun_terbit: '2013', jumlah_halaman: '110', penerbit: 'Penerbit T', file_pdf: '/files/Olahraga5.pdf', gambar: 'images/olahraga5.png', synopsis: 'Tenis meja adalah cabang olahraga yang tempat bermainnya didalam ruangan/gedung (indoor game) yang dimainkan oleh 2 orang atau 4 orang.' },
 ];
+
+function resolveImage(book) {
+  if (!book.gambar) return '/images/default-book.jpg';
+  if (book.gambar.startsWith('http')) return book.gambar;
+  if (book.gambar.startsWith('images/')) return '/' + book.gambar;
+  // Jika hanya nama file
+  return `http://localhost/backend/uploads/images/${book.gambar}`;
+}
 
 const BookDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editForm, setEditForm] = useState({});
+  const [book, setBook] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const book = dummyBooks.find((b) => b.id === parseInt(id));
+  useEffect(() => {
+    // Cek di dummyBooks dulu
+    const found = dummyBooks.find((b) => b.id_buku === id);
+    if (found) {
+      setBook(found);
+      setLoading(false);
+    } else {
+      // Jika tidak ditemukan, fetch dari backend
+      fetch('http://localhost/backend/buku/read.php')
+        .then((res) => res.json())
+        .then((data) => {
+          if (data && data.data) {
+            const foundDb = data.data.find((b) => String(b.id_buku) === String(id));
+            setBook(foundDb || null);
+          } else {
+            setBook(null);
+          }
+          setLoading(false);
+        })
+        .catch(() => {
+          setBook(null);
+          setLoading(false);
+        });
+    }
+  }, [id]);
+
+  // Handle edit form change
+  const handleEditChange = (e) => {
+    setEditForm({ ...editForm, [e.target.name]: e.target.value });
+  };
+
+  // Handle edit submit
+  const handleEditSubmit = (e) => {
+    e.preventDefault();
+    // Di sini Anda bisa menambahkan logika untuk menyimpan perubahan
+    // Untuk sementara, kita hanya menutup modal
+    setShowEditModal(false);
+    alert('Buku berhasil diedit!');
+  };
+
+  // Open edit modal
+  const openEditModal = () => {
+    setEditForm({ ...book });
+    setShowEditModal(true);
+  };
+
+  // Handle PDF view
+  const handlePdfView = (pdfLink) => {
+    if (pdfLink) {
+      // Buka PDF di tab baru
+      window.open(pdfLink, '_blank');
+    } else {
+      alert('File PDF tidak tersedia');
+    }
+  };
+
+  if (loading) {
+    return (
+      <>
+        <Header />
+        <div className="book-detail-container">
+          <div className="class-button">
+            <button className="back-button" onClick={() => navigate(-1)}>&larr; Kembali</button>
+            <h2>Loading...</h2>
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
+  }
 
   if (!book) {
     return (
@@ -260,7 +121,7 @@ const BookDetail = () => {
         <Header />
         <div className="book-detail-container">
           <div className="class-button">
-            <button className="back-button" onClick={() => navigate(-1)}>&larr;</button>
+            <button className="back-button" onClick={() => navigate(-1)}>&larr; Kembali</button>
             <h2>Buku tidak ditemukan</h2>
           </div>
         </div>
@@ -274,37 +135,320 @@ const BookDetail = () => {
       <Header />
       <div className="book-detail-container">
         <div className="class-button">
-        <button className="class-button" onClick={() => navigate(-1)}>&larr; Kembali</button>
-        <h2 className="book-title">{book.title}</h2>
+          <button className="back-button" onClick={() => navigate(-1)}>&larr; Kembali</button>
+          <button className="edit-button" onClick={openEditModal}>✏️ Edit Buku</button>
+        </div>
+        
+        <h2 className="book-title">{book.judul}</h2>
 
         <div className="book-detail-content">
           <div className="book-image">
-            <img src={book.image || '/assets/cover.jpg'} alt={`Cover ${book.title}`} />
+            <img src={resolveImage(book)} alt={`Cover ${book.judul}`} />
           </div>
           <div className="book-info">
-            <h3>{book.title}</h3>
+            <h3>{book.judul}</h3>
             <p className="synopsis">
               Sinopsis: {book.synopsis || 'Sinopsis belum tersedia.'}
             </p>
             <hr />
             <div className="book-meta">
-              <p>Penulis: <span>{book.author}</span></p>
-              <p>Kategori: <span>{book.category}</span></p>
-              <p>Tahun Terbit: <span>{book.year || 'Tidak diketahui'}</span></p>
-              <p>Jumlah Halaman: <span>{book.pages || 'Tidak diketahui'}</span></p>
-              <p>Penerbit: <span>{book.publisher || 'Tidak diketahui'}</span></p>
+              <p>Penulis: <span>{book.penulis}</span></p>
+              <p>Kategori: <span>{book.kategori}</span></p>
+              <p>Tahun Terbit: <span>{book.tahun_terbit || 'Tidak diketahui'}</span></p>
+              <p>Jumlah Halaman: <span>{book.jumlah_halaman || 'Tidak diketahui'}</span></p>
+              <p>Penerbit: <span>{book.penerbit || 'Tidak diketahui'}</span></p>
             </div>
-            {book.link ? (
-              <a href={book.link} target="_blank" rel="noopener noreferrer">
-                <button className="btn-view">Lihat Buku</button>
-              </a>
-            ) : (
-              <button className="btn-view" disabled>Link tidak tersedia</button>
-            )}
+            <div className="book-actions">
+              <button 
+                className="btn-view" 
+                onClick={() => handlePdfView(book.file_pdf)}
+                disabled={!book.file_pdf}
+              >
+                {book.file_pdf ? '📖 Baca PDF' : '❌ PDF Tidak Tersedia'}
+              </button>
+              {book.file_pdf && (
+                <a href={book.file_pdf} target="_blank" rel="noopener noreferrer" className="download-link">
+                  <button className="btn-download">📥 Download PDF</button>
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </div>
-      </div>
+
+      {/* Edit Modal */}
+      {showEditModal && (
+        <div 
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            zIndex: 9999,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '20px'
+          }}
+          onClick={() => setShowEditModal(false)}
+        >
+          <div 
+            style={{
+              backgroundColor: 'white',
+              borderRadius: '10px',
+              padding: '30px',
+              width: '100%',
+              maxWidth: '500px',
+              maxHeight: '80vh',
+              overflowY: 'auto',
+              position: 'relative',
+              boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
+              transform: 'translateY(0)',
+              animation: 'modalSlideIn 0.3s ease-out'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 style={{ margin: '0 0 20px 0', textAlign: 'center', color: '#333' }}>
+              ✏️ Edit Buku
+            </h3>
+            
+            <form onSubmit={handleEditSubmit}>
+              <div style={{ marginBottom: '15px' }}>
+                <label style={{ display: 'block', marginBottom: '5px', fontWeight: '600' }}>
+                  Judul Buku:
+                </label>
+                <input 
+                  name="judul" 
+                  value={editForm.judul || ''} 
+                  onChange={handleEditChange} 
+                  required 
+                  style={{
+                    width: '100%',
+                    padding: '10px',
+                    border: '2px solid #e1e5e9',
+                    borderRadius: '6px',
+                    fontSize: '14px'
+                  }}
+                />
+              </div>
+              
+              <div style={{ marginBottom: '15px' }}>
+                <label style={{ display: 'block', marginBottom: '5px', fontWeight: '600' }}>
+                  Penulis:
+                </label>
+                <input 
+                  name="penulis" 
+                  value={editForm.penulis || ''} 
+                  onChange={handleEditChange} 
+                  required 
+                  style={{
+                    width: '100%',
+                    padding: '10px',
+                    border: '2px solid #e1e5e9',
+                    borderRadius: '6px',
+                    fontSize: '14px'
+                  }}
+                />
+              </div>
+              
+              <div style={{ marginBottom: '15px' }}>
+                <label style={{ display: 'block', marginBottom: '5px', fontWeight: '600' }}>
+                  Kategori:
+                </label>
+                <select 
+                  name="kategori" 
+                  value={editForm.kategori || ''} 
+                  onChange={handleEditChange} 
+                  required
+                  style={{
+                    width: '100%',
+                    padding: '10px',
+                    border: '2px solid #e1e5e9',
+                    borderRadius: '6px',
+                    fontSize: '14px'
+                  }}
+                >
+                  <option value="AGAMA">AGAMA</option>
+                  <option value="FIKSI">FIKSI</option>
+                  <option value="PEMROGRAMAN">PEMROGRAMAN</option>
+                  <option value="OLAHRAGA">OLAHRAGA</option>
+                </select>
+              </div>
+              
+              <div style={{ marginBottom: '15px' }}>
+                <label style={{ display: 'block', marginBottom: '5px', fontWeight: '600' }}>
+                  Tahun Terbit:
+                </label>
+                <input 
+                  name="tahun_terbit" 
+                  type="number" 
+                  value={editForm.tahun_terbit || ''} 
+                  onChange={handleEditChange} 
+                  required 
+                  style={{
+                    width: '100%',
+                    padding: '10px',
+                    border: '2px solid #e1e5e9',
+                    borderRadius: '6px',
+                    fontSize: '14px'
+                  }}
+                />
+              </div>
+              
+              <div style={{ marginBottom: '15px' }}>
+                <label style={{ display: 'block', marginBottom: '5px', fontWeight: '600' }}>
+                  Jumlah Halaman:
+                </label>
+                <input 
+                  name="jumlah_halaman" 
+                  type="number" 
+                  value={editForm.jumlah_halaman || ''} 
+                  onChange={handleEditChange} 
+                  required 
+                  style={{
+                    width: '100%',
+                    padding: '10px',
+                    border: '2px solid #e1e5e9',
+                    borderRadius: '6px',
+                    fontSize: '14px'
+                  }}
+                />
+              </div>
+              
+              <div style={{ marginBottom: '15px' }}>
+                <label style={{ display: 'block', marginBottom: '5px', fontWeight: '600' }}>
+                  Penerbit:
+                </label>
+                <input 
+                  name="penerbit" 
+                  value={editForm.penerbit || ''} 
+                  onChange={handleEditChange} 
+                  required 
+                  style={{
+                    width: '100%',
+                    padding: '10px',
+                    border: '2px solid #e1e5e9',
+                    borderRadius: '6px',
+                    fontSize: '14px'
+                  }}
+                />
+              </div>
+              
+              <div style={{ marginBottom: '15px' }}>
+                <label style={{ display: 'block', marginBottom: '5px', fontWeight: '600' }}>
+                  Sinopsis:
+                </label>
+                <textarea 
+                  name="synopsis" 
+                  value={editForm.synopsis || ''} 
+                  onChange={handleEditChange} 
+                  rows="3"
+                  style={{
+                    width: '100%',
+                    padding: '10px',
+                    border: '2px solid #e1e5e9',
+                    borderRadius: '6px',
+                    fontSize: '14px',
+                    resize: 'vertical',
+                    minHeight: '80px'
+                  }}
+                />
+              </div>
+              
+              <div style={{ marginBottom: '15px' }}>
+                <label style={{ display: 'block', marginBottom: '5px', fontWeight: '600' }}>
+                  Gambar:
+                </label>
+                <input 
+                  name="gambar" 
+                  value={editForm.gambar || ''} 
+                  onChange={handleEditChange} 
+                  style={{
+                    width: '100%',
+                    padding: '10px',
+                    border: '2px solid #e1e5e9',
+                    borderRadius: '6px',
+                    fontSize: '14px'
+                  }}
+                />
+              </div>
+              
+              <div style={{ marginBottom: '20px' }}>
+                <label style={{ display: 'block', marginBottom: '5px', fontWeight: '600' }}>
+                  File PDF:
+                </label>
+                <input 
+                  name="file_pdf" 
+                  value={editForm.file_pdf || ''} 
+                  onChange={handleEditChange} 
+                  style={{
+                    width: '100%',
+                    padding: '10px',
+                    border: '2px solid #e1e5e9',
+                    borderRadius: '6px',
+                    fontSize: '14px'
+                  }}
+                />
+              </div>
+              
+              <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+                <button 
+                  type="submit" 
+                  style={{
+                    padding: '10px 20px',
+                    backgroundColor: '#28a745',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '6px',
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseOver={(e) => {
+                    e.target.style.backgroundColor = '#218838';
+                    e.target.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.style.backgroundColor = '#28a745';
+                    e.target.style.transform = 'translateY(0)';
+                  }}
+                >
+                  💾 Simpan
+                </button>
+                <button 
+                  type="button" 
+                  onClick={() => setShowEditModal(false)}
+                  style={{
+                    padding: '10px 20px',
+                    backgroundColor: '#6c757d',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '6px',
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseOver={(e) => {
+                    e.target.style.backgroundColor = '#5a6268';
+                    e.target.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.style.backgroundColor = '#6c757d';
+                    e.target.style.transform = 'translateY(0)';
+                  }}
+                >
+                  ❌ Batal
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+      
       <Footer />
     </>
   );

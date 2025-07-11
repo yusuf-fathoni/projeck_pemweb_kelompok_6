@@ -1,7 +1,7 @@
 import React from 'react';
 import './CardBook.css';
 
-const CardBook = ({ title, image }) => {
+const CardBook = ({ id, title, image }) => {
   return (
     <div className="card-book">
       <img src={image} alt={title} />
