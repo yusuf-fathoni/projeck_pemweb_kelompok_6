@@ -36,3 +36,59 @@
     transform: rotate(360deg);
   }
 }
+
+/* ===== Tambahan Responsif Global ===== */
+
+/* Untuk layout grid/flex umum */
+@media (max-width: 900px) {
+  .book-detail-content, .category-content, .main-content, .card-list, .row, .flex-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 20px !important;
+  }
+  .book-image img, .card-book img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+}
+
+@media (max-width: 600px) {
+  body, html, .App {
+    font-size: 15px !important;
+  }
+  .book-detail-container, .category-container, .main-content, .container, .content {
+    padding: 10px !important;
+  }
+  .book-title, .category-title, h1, h2, h3 {
+    font-size: 1.2em !important;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+  }
+  .book-detail-content, .category-content, .main-content, .card-list, .row, .flex-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+  }
+  .book-image img, .card-book img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+  .btn-view, .btn-download, .edit-button, .delete-button, .back-button, button {
+    width: 100% !important;
+    min-width: 0 !important;
+    font-size: 1em !important;
+    margin-bottom: 8px !important;
+  }
+}
+
+/* Responsive table (jika ada) */
+@media (max-width: 600px) {
+  table, thead, tbody, th, td, tr {
+    display: block !important;
+    width: 100% !important;
+  }
+  th, td {
+    box-sizing: border-box;
+    padding: 8px 4px !important;
+  }
+}
