@@ -1,23 +1,14 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-// Add CORS headers
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
-
 include '../config.php';
 
-// Ambil semua data dari tabel buku
-// Coba dengan nama kolom yang mungkin benar
-$sql = "SELECT * FROM buku ORDER BY id_buku DESC";
+// Ambil semua data user
+$sql = "SELECT id, nama, email, created_at FROM users ORDER BY id DESC";
 $query = mysqli_query($conn, $sql);
 
-$books = [];
+$users = [];
 if ($query) {
     while ($row = mysqli_fetch_assoc($query)) {
-        $books[] = $row;
+        $users[] = $row;
     }
 }
 ?>
@@ -27,7 +18,7 @@ if ($query) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Buku - Backend System</title>
+    <title>Daftar User - Backend System</title>
     <style>
         * {
             margin: 0;
@@ -43,7 +34,7 @@ if ($query) {
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -101,35 +92,40 @@ if ($query) {
             overflow-x: auto;
         }
 
-        .books-table {
+        .users-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
 
-        .books-table th,
-        .books-table td {
+        .users-table th,
+        .users-table td {
             padding: 12px;
             text-align: left;
             border-bottom: 1px solid #e1e5e9;
         }
 
-        .books-table th {
+        .users-table th {
             background: #f8f9fa;
             font-weight: 600;
             color: #333;
         }
 
-        .books-table tr:hover {
+        .users-table tr:hover {
             background: #f8f9fa;
         }
 
-        .book-cover {
-            width: 60px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 5px;
-            border: 1px solid #ddd;
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #667eea;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
         }
 
         .action-buttons {
@@ -168,39 +164,35 @@ if ($query) {
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        .no-books {
+        .no-users {
             text-align: center;
             padding: 40px;
             color: #666;
             font-size: 18px;
         }
 
-        .book-title {
+        .user-name {
             font-weight: 600;
             color: #333;
-            max-width: 200px;
         }
 
-        .book-author {
+        .user-email {
             color: #666;
             font-size: 14px;
         }
 
-        .book-category {
-            background: #e9ecef;
-            padding: 4px 8px;
-            border-radius: 12px;
+        .user-date {
+            color: #999;
             font-size: 12px;
-            color: #495057;
         }
 
         @media (max-width: 768px) {
-            .books-table {
+            .users-table {
                 font-size: 14px;
             }
             
-            .books-table th,
-            .books-table td {
+            .users-table th,
+            .users-table td {
                 padding: 8px;
             }
             
@@ -212,67 +204,61 @@ if ($query) {
 </head>
 <body>
     <div class="container">
-        <a href="index.php" class="back-btn">← Kembali ke Manajemen Buku</a>
+        <a href="index.php" class="back-btn">← Kembali ke Manajemen User</a>
         
         <div class="header">
-            <h1>📋 Daftar Buku</h1>
-            <p>Kelola semua buku dalam sistem</p>
+            <h1>👥 Daftar User</h1>
+            <p>Kelola semua user dalam sistem</p>
         </div>
 
         <div style="text-align: center; margin-bottom: 20px;">
-            <a href="create.php" class="add-btn">➕ Tambah Buku Baru</a>
+            <a href="create_user.php" class="add-btn">👤 Tambah User Baru</a>
         </div>
 
         <div class="table-container">
-            <?php if (empty($books)): ?>
-                <div class="no-books">
-                    <h3>📚 Belum ada buku</h3>
-                    <p>Klik "Tambah Buku Baru" untuk menambahkan buku pertama</p>
+            <?php if (empty($users)): ?>
+                <div class="no-users">
+                    <h3>👥 Belum ada user</h3>
+                    <p>Klik "Tambah User Baru" untuk menambahkan user pertama</p>
                 </div>
             <?php else: ?>
-                <table class="books-table">
+                <table class="users-table">
                     <thead>
                         <tr>
-                            <th>Cover</th>
-                            <th>Judul & Penulis</th>
-                            <th>Kategori</th>
-                            <th>Penerbit</th>
-                            <th>Tahun</th>
-                            <th>Halaman</th>
+                            <th>Avatar</th>
+                            <th>Nama & Email</th>
+                            <th>Tanggal Daftar</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($books as $book): ?>
+                        <?php foreach ($users as $user): ?>
                             <tr>
                                 <td>
-                                    <?php if (!empty($book['gambar'])): ?>
-                                        <?php if (filter_var($book['gambar'], FILTER_VALIDATE_URL)): ?>
-                                            <img src="<?php echo htmlspecialchars($book['gambar']); ?>" alt="Cover" class="book-cover">
-                                        <?php else: ?>
-                                            <img src="../uploads/images/<?php echo htmlspecialchars($book['gambar']); ?>" alt="Cover" class="book-cover">
-                                        <?php endif; ?>
-                                    <?php else: ?>
-                                        <div style="width: 60px; height: 80px; background: #e9ecef; border-radius: 5px; display: flex; align-items: center; justify-content: center; color: #666;">
-                                            📚
-                                        </div>
-                                    <?php endif; ?>
+                                    <div class="user-avatar">
+                                        <?php echo strtoupper(substr($user['nama'], 0, 1)); ?>
+                                    </div>
                                 </td>
                                 <td>
-                                    <div class="book-title"><?php echo htmlspecialchars($book['judul']); ?></div>
-                                    <div class="book-author"><?php echo htmlspecialchars($book['penulis']); ?></div>
+                                    <div class="user-name"><?php echo htmlspecialchars($user['nama']); ?></div>
+                                    <div class="user-email"><?php echo htmlspecialchars($user['email']); ?></div>
                                 </td>
                                 <td>
-                                    <span class="book-category"><?php echo htmlspecialchars($book['kategori']); ?></span>
+                                    <div class="user-date">
+                                        <?php 
+                                        if (isset($user['created_at'])) {
+                                            echo date('d/m/Y H:i', strtotime($user['created_at']));
+                                        } else {
+                                            echo 'N/A';
+                                        }
+                                        ?>
+                                    </div>
                                 </td>
-                                <td><?php echo htmlspecialchars($book['penerbit']); ?></td>
-                                <td><?php echo htmlspecialchars($book['tahun_terbit']); ?></td>
-                                <td><?php echo htmlspecialchars($book['jumlah_halaman']); ?></td>
                                 <td>
                                     <div class="action-buttons">
-                                        <a href="view.php?id=<?php echo $book['id_buku']; ?>" class="btn btn-view">👁️ Lihat</a>
-                                        <a href="update.php?id=<?php echo $book['id_buku']; ?>" class="btn btn-edit">✏️ Edit</a>
-                                        <a href="delete.php?id=<?php echo $book['id_buku']; ?>" class="btn btn-delete" onclick="return confirm('Yakin ingin menghapus buku ini?')">🗑️ Hapus</a>
+                                        <a href="view_user.php?id=<?php echo $user['id']; ?>" class="btn btn-view">👁️ Lihat</a>
+                                        <a href="update_user.php?id=<?php echo $user['id']; ?>" class="btn btn-edit">✏️ Edit</a>
+                                        <a href="delete_user.php?id=<?php echo $user['id']; ?>" class="btn btn-delete" onclick="return confirm('Yakin ingin menghapus user ini?')">🗑️ Hapus</a>
                                     </div>
                                 </td>
                             </tr>
