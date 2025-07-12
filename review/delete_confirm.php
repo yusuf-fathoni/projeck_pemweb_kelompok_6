@@ -3,26 +3,26 @@ include '../config.php';
 
 $success_message = '';
 $error_message = '';
-$user = null;
+$review = null;
 
-// Ambil ID user dari parameter URL
+// Ambil ID review dari parameter URL
 $id = $_GET['id'] ?? null;
 
 if (!$id) {
-    header('Location: read_user.php');
+    header('Location: delete.php');
     exit;
 }
 
-// Ambil data user berdasarkan ID
-$sql = "SELECT * FROM users WHERE id = ?";
+// Ambil data review berdasarkan ID
+$sql = "SELECT * FROM review WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id);
 $stmt->execute();
 $result = $stmt->get_result();
-$user = $result->fetch_assoc();
+$review = $result->fetch_assoc();
 
-if (!$user) {
-    header('Location: read_user.php');
+if (!$review) {
+    header('Location: delete.php');
     exit;
 }
 
@@ -32,15 +32,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if ($confirm_delete === 'yes') {
         // Delete from database
-        $sql = "DELETE FROM users WHERE id = ?";
+        $sql = "DELETE FROM review WHERE id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id);
         
         if ($stmt->execute()) {
-            $success_message = "User berhasil dihapus!";
-            $user = null; // Clear user data after successful deletion
+            $success_message = "✅ Review berhasil dihapus!";
+            $review = null; // Clear review data after successful deletion
         } else {
-            $error_message = "Gagal menghapus user: " . mysqli_error($conn);
+            $error_message = "Gagal menghapus review: " . mysqli_error($conn);
         }
     } else {
         $error_message = "Konfirmasi penghapusan diperlukan.";
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hapus User - Backend System</title>
+    <title>Konfirmasi Hapus Review - Backend System</title>
     <style>
         * {
             margin: 0;
@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        .user-info {
+        .review-info {
             background: #f8f9fa;
             border-radius: 10px;
             padding: 20px;
@@ -117,9 +117,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border-left: 4px solid #dc3545;
         }
 
-        .user-avatar {
-            width: 80px;
-            height: 80px;
+        .reviewer-avatar {
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             background: #667eea;
             color: white;
@@ -127,22 +127,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 24px;
+            font-size: 18px;
             margin: 0 auto 15px;
         }
 
-        .user-name {
-            font-size: 1.5rem;
+        .reviewer-name {
+            font-size: 1.3rem;
             font-weight: 600;
             color: #333;
             margin-bottom: 10px;
             text-align: center;
         }
 
-        .user-details {
+        .review-details {
             color: #666;
             line-height: 1.6;
             text-align: center;
+        }
+
+        .rating-display {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin: 10px 0;
+        }
+
+        .star {
+            color: #ffc107;
+            font-size: 18px;
         }
 
         .warning-box {
@@ -229,6 +241,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .alert-success {
@@ -258,11 +282,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <div class="container">
-        <a href="read_user.php" class="back-btn">← Kembali ke Daftar User</a>
+        <a href="delete.php" class="back-btn">← Kembali ke Daftar Hapus</a>
         
         <div class="header">
-            <h1>🗑️ Hapus User</h1>
-            <p>Konfirmasi penghapusan user dari sistem</p>
+            <h1>🗑️ Konfirmasi Hapus Review</h1>
+            <p>Konfirmasi penghapusan review dari sistem</p>
         </div>
 
         <div class="delete-container">
@@ -270,26 +294,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="alert alert-success">
                     <?php echo $success_message; ?>
                     <br><br>
-                    <a href="read_user.php" class="btn btn-secondary">Kembali ke Daftar User</a>
+                    <a href="delete.php" class="btn btn-secondary">Kembali ke Daftar Hapus</a>
                 </div>
-            <?php elseif ($user): ?>
+            <?php elseif ($review): ?>
                 <?php if ($error_message): ?>
-                    <div class="alert alert-error"><?php echo $error_message; ?></div>
+                    <div class="alert alert-error">❌ <?php echo $error_message; ?></div>
                 <?php endif; ?>
 
-                <div class="user-info">
-                    <div class="user-avatar">
-                        <?php echo strtoupper(substr($user['nama'], 0, 1)); ?>
+                <div class="review-info">
+                    <div class="reviewer-avatar">
+                        <?php echo strtoupper(substr($review['nama'], 0, 1)); ?>
                     </div>
-                    <div class="user-name"><?php echo htmlspecialchars($user['nama']); ?></div>
-                    <div class="user-details">
-                        <strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?><br>
-                        <?php if (isset($user['created_at'])): ?>
-                            <strong>Tanggal Daftar:</strong> <?php echo date('d/m/Y H:i', strtotime($user['created_at'])); ?><br>
-                        <?php endif; ?>
-                        <?php if (!empty($user['biodata'])): ?>
-                            <strong>Biodata:</strong> <?php echo htmlspecialchars($user['biodata']); ?>
-                        <?php endif; ?>
+                    <div class="reviewer-name"><?php echo htmlspecialchars($review['nama']); ?></div>
+                    <div class="review-details">
+                        <strong>Email:</strong> <?php echo htmlspecialchars($review['email']); ?><br>
+                        <strong>Rating:</strong> 
+                        <div class="rating-display">
+                            <?php 
+                            $rating = (int)$review['rating'];
+                            for ($i = 1; $i <= 5; $i++) {
+                                if ($i <= $rating) {
+                                    echo '<span class="star">⭐</span>';
+                                } else {
+                                    echo '<span class="star">☆</span>';
+                                }
+                            }
+                            ?>
+                        </div>
+                        <strong>Pesan:</strong> <?php echo htmlspecialchars(substr($review['pesan'], 0, 100)) . (strlen($review['pesan']) > 100 ? '...' : ''); ?>
                     </div>
                 </div>
 
@@ -299,7 +331,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                     <div class="warning-text">
                         <strong>Tindakan ini tidak dapat dibatalkan!</strong><br>
-                        Semua data user, termasuk biodata dan informasi akun akan dihapus secara permanen dari sistem.
+                        Review dan rating akan dihapus secara permanen dari sistem.
                     </div>
                 </div>
 
@@ -309,17 +341,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <select id="confirm_delete" name="confirm_delete" required>
                             <option value="">Pilih konfirmasi</option>
                             <option value="no">Tidak, saya tidak ingin menghapus</option>
-                            <option value="yes">Ya, saya yakin ingin menghapus user ini</option>
+                            <option value="yes">Ya, saya yakin ingin menghapus review ini</option>
                         </select>
                     </div>
 
                     <div class="button-group">
-                        <a href="read_user.php" class="btn btn-secondary">❌ Batal</a>
-                        <button type="submit" class="btn btn-danger">🗑️ Hapus User</button>
+                        <a href="delete.php" class="btn btn-secondary">❌ Batal</a>
+                        <button type="submit" class="btn btn-danger">🗑️ Hapus Review</button>
                     </div>
                 </form>
             <?php endif; ?>
         </div>
     </div>
 </body>
-</html>
+</html> 

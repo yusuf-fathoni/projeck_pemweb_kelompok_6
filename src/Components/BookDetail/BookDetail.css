@@ -2,15 +2,12 @@
   padding: 20px;
   max-width: 1000px;
   margin: 0 auto;
-  background-color: #f9f9f9;
-  border-radius: 8px;
+  background-color: #f9f9f9; /* Menambahkan warna latar belakang untuk kontras yang lebih baik */
+  border-radius: 8px; /* Agar lebih rapi di pojok */
 }
 
 .class-button {
   margin-bottom: 20px;
-  display: flex;
-  gap: 10px;
-  align-items: center;
 }
 
 .class-button button {
@@ -18,7 +15,7 @@
   color: #fff;
   padding: 10px 20px;
   border: none;
-  border-radius: 8px;
+  border-radius: 8px; /* sedikit lebih kotak, modern */
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -28,79 +25,38 @@
 
 .class-button button:hover {
   background-color: #1a1a40;
-  transform: translateY(-2px);
-}
-
-.back-button {
-  background: linear-gradient(135deg, #6c757d, #5a6268) !important;
-  color: white !important;
-  box-shadow: 0 3px 6px rgba(108, 117, 125, 0.3) !important;
-  border-radius: 8px !important;
-  padding: 10px 20px !important;
-  font-weight: 600 !important;
-  transition: all 0.3s ease !important;
-}
-
-.back-button:hover {
-  background: linear-gradient(135deg, #5a6268, #495057) !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 5px 12px rgba(108, 117, 125, 0.4) !important;
-}
-
-.back-button:active {
-  transform: translateY(0) !important;
-  box-shadow: 0 2px 4px rgba(108, 117, 125, 0.3) !important;
-}
-
-.edit-button {
-  background: linear-gradient(135deg, #28a745, #218838) !important;
-  color: white !important;
-  box-shadow: 0 3px 6px rgba(40, 167, 69, 0.3) !important;
-  border-radius: 8px !important;
-  padding: 10px 20px !important;
-  font-weight: 600 !important;
-  transition: all 0.3s ease !important;
-}
-
-.edit-button:hover {
-  background: linear-gradient(135deg, #218838, #1e7e34) !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 5px 12px rgba(40, 167, 69, 0.4) !important;
-}
-
-.edit-button:active {
-  transform: translateY(0) !important;
-  box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3) !important;
+  transform: translateY(-2px); /* efek angkat ringan saat hover */
 }
 
 .book-title {
-  margin-bottom: 16px;     /* Jarak judul ke bawah */
-  margin-top: 0;           /* Hilangkan jarak atas */
+  margin-top: 20px;
+  font-size: 24px; /* Sedikit lebih besar agar lebih menonjol */
+  font-weight: bold;
+  color: #333;
 }
 
 .book-detail-content {
   display: flex;
-  align-items: flex-start; /* Biar gambar dan info sejajar di atas */
-  gap: 32px;               /* Jarak antara gambar dan info */
-  margin-top: 0;           /* Hilangkan jarak atas */
+  flex-wrap: wrap;
+  margin-top: 20px;
+  gap: 30px;
 }
 
 .book-image img {
-  max-width: 180px;
+  width: 180px;
+  height: 240px;
+  object-fit: cover;
   border-radius: 10px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Tambahkan bayangan agar gambar terlihat lebih menonjol */
 }
 
 .book-info {
-  margin-top: 0;           /* Hilangkan jarak atas */
-  padding-top: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  flex: 1;
+  min-width: 300px;
 }
 
 .book-info h3 {
-  font-size: 22px;
+  font-size: 22px; /* Ukuran lebih besar agar lebih mudah dibaca */
   margin-bottom: 10px;
   color: #333;
 }
@@ -113,266 +69,31 @@
 
 .book-meta p {
   margin: 8px 0;
-  font-size: 16px;
+  font-size: 16px; /* Sedikit lebih besar untuk kenyamanan membaca */
   color: #333;
 }
 
 .book-meta span {
   font-weight: bold;
-  color: #2c2c54;
+  color: #2c2c54; /* Menggunakan warna yang konsisten */
 }
 
 .btn-view {
   margin-top: 15px;
   padding: 10px 16px;
-  background: linear-gradient(135deg, #007bff, #0056b3);
+  background-color: #333;
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin-right: 10px;
-  font-weight: 600;
-  box-shadow: 0 3px 6px rgba(0, 123, 255, 0.3);
+  transition: background-color 0.3s ease;
 }
 
 .btn-view:hover {
-  background: linear-gradient(135deg, #0056b3, #004085);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 12px rgba(0, 123, 255, 0.4);
-}
-
-.btn-view:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+  background-color: #555;
 }
 
 .btn-view:disabled {
-  background: linear-gradient(135deg, #6c757d, #5a6268);
+  background-color: #aaa; /* Mengubah warna tombol ketika disabled */
   cursor: not-allowed;
-  transform: none;
-  box-shadow: 0 2px 4px rgba(108, 117, 125, 0.3);
-}
-
-.btn-download {
-  margin-top: 15px;
-  padding: 10px 16px;
-  background: linear-gradient(135deg, #28a745, #218838);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  display: inline-block;
-  font-weight: 600;
-  box-shadow: 0 3px 6px rgba(40, 167, 69, 0.3);
-}
-
-.btn-download:hover {
-  background: linear-gradient(135deg, #218838, #1e7e34);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 12px rgba(40, 167, 69, 0.4);
-}
-
-.btn-download:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3);
-}
-
-.book-actions {
-  margin-top: 20px;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.download-link {
-  text-decoration: none;
-}
-
-/* Modal Animation */
-@keyframes modalSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-30px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes backdropFadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* Enhanced Modal Styles */
-.modal-backdrop {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  background-color: rgba(0, 0, 0, 0.6) !important;
-  z-index: 9999 !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  backdrop-filter: blur(5px);
-  animation: backdropFadeIn 0.3s ease-out;
-}
-
-.modal-edit-book {
-  background: white !important;
-  border-radius: 15px !important;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4) !important;
-  padding: 30px !important;
-  width: 90% !important;
-  max-width: 600px !important;
-  max-height: 90vh !important;
-  overflow-y: auto !important;
-  z-index: 10000 !important;
-  position: relative !important;
-  animation: modalSlideIn 0.3s ease-out !important;
-  transform: translateZ(0) !important;
-  margin: auto !important;
-}
-
-.modal-edit-book h3 {
-  margin: 0 0 20px 0;
-  color: #333;
-  font-size: 24px;
-  font-weight: 600;
-  text-align: center;
-}
-
-.edit-book-form-modal {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.edit-book-form-modal .form-group {
-  margin-bottom: 0;
-}
-
-.edit-book-form-modal label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: 600;
-  color: #333;
-  font-size: 14px;
-}
-
-.edit-book-form-modal input,
-.edit-book-form-modal select,
-.edit-book-form-modal textarea {
-  width: 100%;
-  padding: 10px 12px;
-  border: 2px solid #e1e5e9;
-  border-radius: 6px;
-  font-size: 14px;
-  transition: border-color 0.3s;
-  box-sizing: border-box;
-}
-
-.edit-book-form-modal input:focus,
-.edit-book-form-modal select:focus,
-.edit-book-form-modal textarea:focus {
-  outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-
-.edit-book-form-modal textarea {
-  resize: vertical;
-  min-height: 80px;
-}
-
-.modal-actions {
-  display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-  margin-top: 20px;
-}
-
-.save-btn {
-  background: linear-gradient(135deg, #28a745, #218838);
-  color: white;
-  box-shadow: 0 3px 6px rgba(40, 167, 69, 0.3);
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  border: none;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.save-btn:hover {
-  background: linear-gradient(135deg, #218838, #1e7e34);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 12px rgba(40, 167, 69, 0.4);
-}
-
-.save-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3);
-}
-
-.cancel-btn {
-  background: linear-gradient(135deg, #6c757d, #5a6268);
-  color: white;
-  box-shadow: 0 3px 6px rgba(108, 117, 125, 0.3);
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  border: none;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.cancel-btn:hover {
-  background: linear-gradient(135deg, #5a6268, #495057);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 12px rgba(108, 117, 125, 0.4);
-}
-
-.cancel-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(108, 117, 125, 0.3);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .book-detail-content {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .book-image img {
-    width: 150px;
-    height: 200px;
-  }
-  
-  .modal-edit-book {
-    width: 95%;
-    padding: 20px;
-  }
-  
-  .modal-actions {
-    flex-direction: column;
-  }
-  
-  .save-btn,
-  .cancel-btn {
-    width: 100%;
-  }
 }

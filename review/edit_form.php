@@ -1,11 +1,29 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 include '../config.php';
 
 $success_message = '';
 $error_message = '';
+$review = null;
+
+// Get review ID from URL
+$id = $_GET['id'] ?? '';
+
+if (empty($id)) {
+    header('Location: update.php');
+    exit();
+}
+
+// Fetch review data
+$stmt = $conn->prepare("SELECT * FROM review WHERE id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
+$review = $result->fetch_assoc();
+
+if (!$review) {
+    header('Location: update.php');
+    exit();
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nama = $_POST['nama'] ?? '';
@@ -23,16 +41,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (strlen($pesan) < 10) {
         $error_message = "Pesan minimal 10 karakter";
     } else {
-        // Insert review
-        $stmt = $conn->prepare("INSERT INTO review (nama, email, rating, pesan) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssis", $nama, $email, $rating, $pesan);
+        // Update review
+        $stmt = $conn->prepare("UPDATE review SET nama = ?, email = ?, rating = ?, pesan = ? WHERE id = ?");
+        $stmt->bind_param("ssisi", $nama, $email, $rating, $pesan, $id);
         
         if ($stmt->execute()) {
-            $success_message = "✅ Review berhasil ditambahkan! Review baru telah tersimpan dalam sistem.";
-            // Reset form data
-            $_POST = array();
+            $success_message = "✅ Review berhasil diperbarui!";
+            // Update review data for display
+            $review = array_merge($review, $_POST);
         } else {
-            $error_message = "Gagal menambahkan review: " . $stmt->error;
+            $error_message = "Gagal memperbarui review: " . $stmt->error;
         }
     }
 }
@@ -43,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Review Baru - Backend System</title>
+    <title>Edit Review - Backend System</title>
     <style>
         * {
             margin: 0;
@@ -111,7 +129,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .form-group input,
-        .form-group select,
         .form-group textarea {
             width: 100%;
             padding: 12px;
@@ -122,7 +139,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .form-group input:focus,
-        .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
             border-color: #667eea;
@@ -233,15 +249,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .form-info ul {
             margin: 10px 0 0 20px;
         }
+
+        .review-info {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .review-info h4 {
+            margin-bottom: 10px;
+            color: #495057;
+        }
+
+        .review-detail {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+        }
+
+        .review-detail .stars {
+            color: #ffd700;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="index.php" class="back-btn">← Kembali ke Manajemen Review</a>
+        <a href="update.php" class="back-btn">← Kembali ke Daftar Update</a>
         
         <div class="header">
-            <h1>⭐ Tambah Review Baru</h1>
-            <p>Tambahkan review baru untuk perpustakaan</p>
+            <h1>✏️ Edit Review</h1>
+            <p>Perbarui informasi review</p>
         </div>
 
         <div class="form-container">
@@ -252,6 +295,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php if ($error_message): ?>
                 <div class="alert alert-error">❌ <?php echo $error_message; ?></div>
             <?php endif; ?>
+
+            <div class="review-info">
+                <h4>📝 Review Saat Ini:</h4>
+                <div class="review-detail">
+                    <div>
+                        <strong>Nama:</strong> <?php echo htmlspecialchars($review['nama']); ?>
+                    </div>
+                    <div class="stars">
+                        <?php
+                        for ($i = 1; $i <= 5; $i++) {
+                            echo $i <= $review['rating'] ? '★' : '☆';
+                        }
+                        ?>
+                    </div>
+                </div>
+                <div class="review-detail">
+                    <div>
+                        <strong>Email:</strong> <?php echo htmlspecialchars($review['email']); ?>
+                    </div>
+                    <div>
+                        <strong>Rating:</strong> <?php echo $review['rating']; ?>/5
+                    </div>
+                </div>
+                <div class="review-detail">
+                    <div>
+                        <strong>Pesan:</strong> <?php echo htmlspecialchars($review['pesan']); ?>
+                    </div>
+                </div>
+            </div>
 
             <div class="form-info">
                 <strong>📋 Informasi Review:</strong>
@@ -265,12 +337,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form method="POST">
                 <div class="form-group">
                     <label for="nama">Nama Lengkap <span class="required">*</span></label>
-                    <input type="text" id="nama" name="nama" required placeholder="Masukkan nama lengkap" value="<?php echo htmlspecialchars($_POST['nama'] ?? ''); ?>">
+                    <input type="text" id="nama" name="nama" required placeholder="Masukkan nama lengkap" value="<?php echo htmlspecialchars($review['nama']); ?>">
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email <span class="required">*</span></label>
-                    <input type="email" id="email" name="email" required placeholder="contoh@email.com" value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>">
+                    <input type="email" id="email" name="email" required placeholder="contoh@email.com" value="<?php echo htmlspecialchars($review['email']); ?>">
                 </div>
 
                 <div class="form-group">
@@ -278,7 +350,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="rating-container">
                         <div class="rating-stars">
                             <?php
-                            $current_rating = $_POST['rating'] ?? 5;
+                            $current_rating = $review['rating'];
                             for ($i = 1; $i <= 5; $i++) {
                                 $star_class = $i <= $current_rating ? 'filled' : '';
                                 echo "<span class='star $star_class' data-rating='$i'>★</span>";
@@ -292,11 +364,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <div class="form-group">
                     <label for="pesan">Pesan/Review <span class="required">*</span></label>
-                    <textarea id="pesan" name="pesan" required placeholder="Tulis review atau feedback Anda (minimal 10 karakter)"><?php echo htmlspecialchars($_POST['pesan'] ?? ''); ?></textarea>
+                    <textarea id="pesan" name="pesan" required placeholder="Tulis review atau feedback Anda (minimal 10 karakter)"><?php echo htmlspecialchars($review['pesan']); ?></textarea>
                 </div>
 
                 <div style="text-align: center; margin-top: 30px;">
-                    <button type="submit" class="btn">⭐ Tambah Review Baru</button>
+                    <button type="submit" class="btn">✏️ Update Review</button>
                 </div>
             </form>
         </div>
@@ -349,4 +421,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         });
     </script>
 </body>
-</html>
+</html> 

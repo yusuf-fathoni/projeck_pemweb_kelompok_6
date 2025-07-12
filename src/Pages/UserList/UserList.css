@@ -1,4 +1,4 @@
-.review-list-page {
+.user-list-page {
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 20px 0;
@@ -40,10 +40,40 @@
   padding: 20px;
 }
 
-.rating-stars {
-  color: #ffc107;
-  font-size: 16px;
-  letter-spacing: 2px;
+.role-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.role-badge.admin {
+  background-color: #dc3545;
+  color: white;
+}
+
+.role-badge.user {
+  background-color: #28a745;
+  color: white;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.status-badge.aktif {
+  background-color: #28a745;
+  color: white;
+}
+
+.status-badge.nonaktif {
+  background-color: #6c757d;
+  color: white;
 }
 
 .back-button-container {

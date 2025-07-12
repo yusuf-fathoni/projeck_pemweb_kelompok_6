@@ -141,3 +141,88 @@ h3 {
     font-size: 12.5px;
   }
 }
+
+/* Data Navigation Section */
+.data-navigation-section {
+  padding: 40px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 20px 0;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.data-navigation-section h3 {
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  min-width: 180px;
+}
+
+.book-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.book-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.review-btn {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.review-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(240, 147, 251, 0.3);
+}
+
+.user-btn {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+}
+
+.user-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(79, 172, 254, 0.3);
+}
+
+/* Responsive design for navigation */
+@media (max-width: 768px) {
+  .data-navigation-section {
+    padding: 30px 15px;
+  }
+  
+  .nav-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .nav-btn {
+    width: 100%;
+    max-width: 280px;
+    padding: 12px 25px;
+    font-size: 14px;
+  }
+}

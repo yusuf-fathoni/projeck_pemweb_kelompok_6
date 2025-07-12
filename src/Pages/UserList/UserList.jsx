@@ -3,23 +3,23 @@ import { useNavigate } from 'react-router-dom';
 import DataTable from '../../Components/DataTable/DataTable';
 import Header from '../../Components/Header/Header';
 import Footer from '../../Components/Footer/Footer';
-import './ReviewList.css';
+import './UserList.css';
 
-const ReviewList = () => {
+const UserList = () => {
   const navigate = useNavigate();
-  const [reviews, setReviews] = useState([]);
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     setLoading(true);
-    fetch('http://localhost/backend/api/review.php')
+    fetch('http://localhost/backend/api/user.php')
       .then((res) => res.json())
       .then((result) => {
         if (result.success) {
-          setReviews(result.data);
+          setUsers(result.data);
         } else {
-          setError(result.message || 'Gagal mengambil data review');
+          setError(result.message || 'Gagal mengambil data user');
         }
         setLoading(false);
       })
@@ -32,27 +32,14 @@ const ReviewList = () => {
   const columns = [
     { key: 'id', header: 'ID' },
     { key: 'nama', header: 'Nama' },
-    { key: 'email', header: 'Email' },
-    {
-      key: 'rating',
-      header: 'Rating',
-      render: (value) => {
-        const stars = '★'.repeat(value) + '☆'.repeat(5 - value);
-        return <span className="rating-stars">{stars}</span>;
-      }
-    },
-    {
-      key: 'pesan',
-      header: 'Pesan',
-      render: (value) => value && value.length > 50 ? `${value.substring(0, 50)}...` : value
-    }
+    { key: 'email', header: 'Email' }
   ];
 
   if (loading) {
     return (
       <div className="loading-container">
         <div className="loading-spinner"></div>
-        <p>Memuat data review...</p>
+        <p>Memuat data user...</p>
       </div>
     );
   }
@@ -69,7 +56,7 @@ const ReviewList = () => {
   return (
     <>
       <Header />
-      <div className="review-list-page">
+      <div className="user-list-page">
         <div className="back-button-container">
           <button 
             className="back-btn"
@@ -79,8 +66,8 @@ const ReviewList = () => {
           </button>
         </div>
         <DataTable
-          title="Daftar Review"
-          data={reviews}
+          title="Daftar User"
+          data={users}
           columns={columns}
         />
       </div>
@@ -89,4 +76,4 @@ const ReviewList = () => {
   );
 };
 
-export default ReviewList; 
+export default UserList; 

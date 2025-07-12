@@ -86,6 +86,8 @@ function Home() {
   const daftarRef = useRef(null);
   const populerRef = useRef(null);
   const navigate = useNavigate();
+  
+
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
@@ -163,12 +165,39 @@ function Home() {
     navigate(`/book/${bookId}`);
   };
 
+
+
   return (
     <>
       <Header />
       <div className="home-container">
         <div className="hero-image" data-aos="fade-down">
           <img src={hero} alt="Hero" />
+        </div>
+
+        {/* TOMBOL NAVIGASI DATA */}
+        <div className="data-navigation-section" data-aos="fade-up">
+          <h3>Data Management</h3>
+          <div className="nav-buttons">
+            <button 
+              className="nav-btn book-btn"
+              onClick={() => navigate('/books')}
+            >
+              📚 Daftar Buku
+            </button>
+            <button 
+              className="nav-btn review-btn"
+              onClick={() => navigate('/reviews')}
+            >
+              ⭐ Daftar Review
+            </button>
+            <button 
+              className="nav-btn user-btn"
+              onClick={() => navigate('/users')}
+            >
+              👥 Daftar User
+            </button>
+          </div>
         </div>
 
         {/* DAFTAR BUKU */}

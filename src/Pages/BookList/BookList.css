@@ -1,4 +1,4 @@
-.review-list-page {
+.book-list-page {
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 20px 0;
@@ -38,12 +38,6 @@
   margin: 20px;
   border-radius: 8px;
   padding: 20px;
-}
-
-.rating-stars {
-  color: #ffc107;
-  font-size: 16px;
-  letter-spacing: 2px;
 }
 
 .back-button-container {
