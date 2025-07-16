@@ -1,3 +1,33 @@
+kelas ti-2,semester 4
+Link YouTube Project Akhir : https://youtu.be/gOHzlH0Wl24?si=aarO6beUKgCwCm7L
+
+Link Tugas Pertemuan Mandiri:
+
+1. Mohammad Yusuf Fathoni
+   - Pertemuan 8 : https://github.com/yusuf-fathoni/deploy-react.git
+   - Pertemuan 9 : https://github.com/yusuf-fathoni/kalkulator-php.git
+   - Pertemuan 10 : https://github.com/yusuf-fathoni/pemweb_pertemuan10.git
+   - Pertemuan 11 : https://github.com/yusuf-fathoni/pemweb_pertemuan11.git
+   - Pertemuan 12 : https://github.com/yusuf-fathoni/pemweb_pertemuan-12-dan-13.git
+   - Pertemuan 13 : https://github.com/yusuf-fathoni/pemweb_pertemuan-12-dan-13.git
+
+2. Hilda
+- PTM 8 : https://github.com/hilda1111111/PTM8.git
+- PTM 9 : https://github.com/hilda1111111/PTM9.git
+- PTM 10 : https://github.com/hilda1111111/PTM10.git
+- PTM 11 : https://github.com/hilda1111111/PTM11.git
+- PTM 12 : https://github.com/hilda1111111/PTM12.git
+- PTM 13 : https://github.com/hilda1111111/PTM13_Hilda_TI-2.git
+
+3. Mesi Nurmaisya : 
+- ptm 8 https://github.com/mesinurmaisya/deploy-react.git
+- ptm 9 https://github.com/mesinurmaisya/tugasKalkulator.git
+- ptm 10 https://github.com/mesinurmaisya/pertemuan10.git
+- ptm 11 https://github.com/mesinurmaisya/smt4-ptm11.git
+- ptm 12 https://github.com/mesinurmaisya/ptm12.git
+- ptm 13 https://github.com/mesinurmaisya/ptm13_pemweb.git
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
