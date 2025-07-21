@@ -1,4 +1,4 @@
-kelas ti-2,semester 4
+kelas ti-2,kelompok 6 semester 4
 Link YouTube Project Akhir : https://youtu.be/gOHzlH0Wl24?si=aarO6beUKgCwCm7L
 
 Link Tugas Pertemuan Mandiri:
